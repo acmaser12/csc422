@@ -1,7 +1,8 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * CSC 422
+ * Adam Maser
+ * 10/27/2019
+ * assignment 1: version control practice with pet program
  */
 package petdb;
 
@@ -22,7 +23,15 @@ public class Pet {
         return this.name;
     }
     
+    public void setName(String name) {
+        this.name = name;
+    }
+    
     public int getAge() {
         return this.age;
+    }
+    
+    public void setAge(int age) {
+        this.age = age;
     }
 }

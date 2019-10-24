@@ -24,7 +24,9 @@ public class PetDB {
             System.out.print("\nWhat would you like to do?\n"
                 + " 1) View all pets\n"
                 + " 2) Add more pets\n"
-                + " 3) Exit program\n"
+                + " 3) Search by name\n"
+                + " 4) Search by age\n"
+                + " 5) Exit program\n"
                 + "Your choice: ");
             int selection = stdin.nextInt();
             
@@ -36,6 +38,12 @@ public class PetDB {
                     addPets();
                     break;
                 case 3:
+                    searchByName();
+                    break;
+                case 4:
+                    searchByAge();
+                    break;
+                case 5:
                     System.exit(0);
             }
         }
@@ -71,5 +79,39 @@ public class PetDB {
             }
         }
         System.out.println(petsAdded + " pets added.");
+    }
+    
+    private static void searchByName() {
+        Scanner stdin = new Scanner(System.in);
+        System.out.print("\nEnter a name to search: ");
+        String nameToSearch = stdin.next();
+        
+        System.out.print("\n+----------------------+\n");
+        System.out.printf("|%3s | %-10s|%4s |", "ID", "NAME", "AGE");
+        System.out.print("\n+----------------------+\n");
+        for (int i = 0; i< allPets.size(); i++) {
+            Pet pet = allPets.get(i);
+            if (pet.getName().equals(nameToSearch)) {
+                System.out.printf("|%3d | %-10s|%4d |\n", i, pet.getName(), pet.getAge());
+            } 
+        }
+        System.out.println("+----------------------+");
+    }
+    
+    private static void searchByAge() {
+        Scanner stdin = new Scanner(System.in);
+        System.out.print("\nEnter an age to search: ");
+        int ageToSearch = stdin.nextInt();
+        
+        System.out.print("\n+----------------------+\n");
+        System.out.printf("|%3s | %-10s|%4s |", "ID", "NAME", "AGE");
+        System.out.print("\n+----------------------+\n");
+        for (int i = 0; i< allPets.size(); i++) {
+            Pet pet = allPets.get(i);
+            if (pet.getAge() == ageToSearch) {
+                System.out.printf("|%3d | %-10s|%4d |\n", i, pet.getName(), pet.getAge());
+            } 
+        }
+        System.out.println("+----------------------+");
     }
 }

@@ -6,16 +6,35 @@
  */
 package petdb;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 /**
  *
  * @author adammaser
  */
-public class PetDB {
+public class PetDB implements Serializable {
     static ArrayList<Pet> allPets = new ArrayList<>();
     
     public static void main(String[] args) {
+        //load ArrayList from file, if it exists
+        File petFile = new File("pets");
+        if (petFile.exists()) {
+            try {
+                //get file and create input streams
+                FileInputStream fileIn = new FileInputStream(petFile);
+                ObjectInputStream objectIn = new ObjectInputStream(fileIn);
+                //read objects into Pet ArrayList
+                allPets = (ArrayList<Pet>) objectIn.readObject();
+                //close streams
+                objectIn.close();
+                fileIn.close();
+            } catch(Exception ex) {
+                //alert user if there was an error loading pets
+                System.out.println("Error loading pets from file.");
+            }
+            
+        }
         Scanner stdin = new Scanner(System.in);
         System.out.println("Pet Database Program.");
         while (true) {
@@ -51,6 +70,7 @@ public class PetDB {
                     searchByAge();
                     break;
                 case 7:
+                    saveFile();
                     System.exit(0);
             }
         }
@@ -161,5 +181,21 @@ public class PetDB {
             } 
         }
         System.out.println("+----------------------+");//print footer
+    }
+    
+    private static void saveFile() {
+        try {
+            //create new file and output stream
+            FileOutputStream fileOut = new FileOutputStream("pets");
+            ObjectOutputStream objectOut = new ObjectOutputStream(fileOut);
+            //write ArrayList of pets to file
+            objectOut.writeObject(allPets);
+            //close stream and file
+            objectOut.close();
+            fileOut.close();
+            } catch(Exception E) {
+                //if IOException or FileNotFoundException are thrown, alert user
+                System.out.println("File could not be saved.");
+        }
     }
 }

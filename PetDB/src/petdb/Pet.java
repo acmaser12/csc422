@@ -6,11 +6,12 @@
  */
 package petdb;
 
+import java.io.Serializable;
 /**
  *
  * @author adammaser
  */
-public class Pet {
+public class Pet implements Serializable {
     private String name;
     private int age;
     

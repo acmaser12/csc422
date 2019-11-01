@@ -113,7 +113,11 @@ public class PetDB implements Serializable {
                 
                 String petName = parseResponse.next();
                 int petAge = parseResponse.nextInt();
-                
+                //test age, if outside of range 1-20, reset loop
+                if (petAge < 1 || petAge > 20) {
+                    System.out.println("Error: " + petAge + " is not a valid age.");
+                    continue;
+                }
                 Pet newPet = new Pet(petName, petAge);
                 allPets.add(newPet);
                 

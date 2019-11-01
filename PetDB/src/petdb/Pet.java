@@ -1,8 +1,8 @@
 /*
  * CSC 422
  * Adam Maser
- * 10/27/2019
- * assignment 1: version control practice with pet program
+ * 10/31/2019
+ * assignment 2: version control practice with pet program (extended)
  */
 package petdb;
 

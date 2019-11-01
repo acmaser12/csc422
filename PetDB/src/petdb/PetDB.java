@@ -111,17 +111,29 @@ public class PetDB implements Serializable {
                 }
                 Scanner parseResponse = new Scanner(response);
                 
-                String petName = parseResponse.next();
-                int petAge = parseResponse.nextInt();
-                //test age, if outside of range 1-20, reset loop
-                if (petAge < 1 || petAge > 20) {
-                    System.out.println("Error: " + petAge + " is not a valid age.");
-                    continue;
+                //handle any input -type- issues with try-catch block
+                try {
+                    String petName = parseResponse.next();
+                    int petAge = parseResponse.nextInt();
+                    //if there are tokens remaining after name and age, input is invalid
+                    //i.e. three inputs ("George, 11, Animal")
+                    if (parseResponse.hasNext()) {
+                        System.out.println("Error: " + response + " is not a valid input.");
+                        continue;
+                    }
+                    //test age, if outside of range 1-20, reset loop
+                    if (petAge < 1 || petAge > 20) {
+                        System.out.println("Error: " + petAge + " is not a valid age.");
+                        continue;
+                    }
+                    Pet newPet = new Pet(petName, petAge);
+                    allPets.add(newPet);
+
+                    petsAdded++;
+                } catch (Exception ex) {
+                    System.out.println("Error: " + response + " is not a valid input.");
                 }
-                Pet newPet = new Pet(petName, petAge);
-                allPets.add(newPet);
                 
-                petsAdded++;
             }
         }
         System.out.println(petsAdded + " pets added.");

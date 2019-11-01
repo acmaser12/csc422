@@ -104,6 +104,11 @@ public class PetDB implements Serializable {
             if (response.equals("done")) {
                 break;
             } else {
+                //if database size is equal to 5, allow no more entries
+                if (allPets.size() == 5) {
+                    System.out.println("Error: Database is full.");
+                    break;
+                }
                 Scanner parseResponse = new Scanner(response);
                 
                 String petName = parseResponse.next();
